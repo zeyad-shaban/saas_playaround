@@ -4,7 +4,6 @@ export async function GET() {
         ? "http://127.0.0.1:8000/api/idea" // Local FastAPI
         : `https://${process.env.VERCEL_URL}/api/idea`;
         
-    console.log(`API_URL: ${API_URL}, node env: ${process.env.NODE_ENV}`)
     const response = await fetch(API_URL, {
         cache: 'no-store', // Ensures no intermediate caching
     });
