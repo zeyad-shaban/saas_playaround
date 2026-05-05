@@ -1,3 +1,5 @@
 fastapi
 uvicorn
 google-genai
+dotenv
+google-api-core
