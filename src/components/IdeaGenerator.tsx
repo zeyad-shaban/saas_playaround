@@ -52,7 +52,7 @@ export default function IdeaGenerator() {
             <div className="w-full max-w-2xl">
                 <div className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 rounded-2xl p-8 shadow-2xl">
                     <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-8 text-center">
-                        💡 Idea Generator
+                        💡 Idea Generator LOL
                     </h1>
                     
                     <div className="relative min-h-40 bg-slate-900/50 rounded-xl p-6 border border-slate-700/30">
