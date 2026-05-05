@@ -47,7 +47,7 @@ async def idea():
 
     return StreamingResponse(
         stream_generator(),
-        media_type="text/plain",
+        media_type="event-stream",
         headers={
             "X-Accel-Buffering": "no",
             "Cache-Control": "no-cache",
