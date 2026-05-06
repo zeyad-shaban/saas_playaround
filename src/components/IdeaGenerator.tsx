@@ -13,6 +13,7 @@ export default function IdeaGenerator() {
         setLoading(true);
         setError(null);
 
+
         try {
             const token = await getToken();
             const res = await fetch("/api/python/idea", {
