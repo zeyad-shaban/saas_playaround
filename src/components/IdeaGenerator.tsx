@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { getToken, useAuth } from "@clerk/nextjs";
 
 export default function IdeaGenerator() {
     const [idea, setIdea] = useState<string>("")
@@ -13,7 +14,13 @@ export default function IdeaGenerator() {
         setError(null);
 
         try {
-            const res = await fetch("/api/python/idea");
+            const token = await getToken();
+            const res = await fetch("/api/python/idea", {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
             const reader = res.body?.getReader();
