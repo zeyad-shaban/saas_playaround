@@ -13,25 +13,27 @@ export default function IdeaGenerator() {
         setError(null);
 
         try {
-            const res = await fetch("/api/idea");
+            const res = await fetch("/api/python/idea");
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
             const reader = res.body?.getReader();
             if (!reader) throw new Error("Stream reader not available");
 
             const decoder = new TextDecoder();
+            let fullText = "";
             while (true) {
                 const { value, done } = await reader.read();
                 if (done) break;
 
                 const chunk = decoder.decode(value, { stream: true });
+                fullText += chunk;
 
-                setIdea(idea => (idea + chunk))
+                setIdea((idea) => idea + chunk);
             }
 
             // Check if response is an error message
-            if (idea.startsWith("ERROR:")) {
-                setError(idea.replace("ERROR: ", ""));
+            if (fullText.startsWith("ERROR:")) {
+                setError(fullText.replace("ERROR: ", ""));
                 setIdea("");
             }
 
