@@ -1,19 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getToken, useAuth } from "@clerk/nextjs";
+import { useState } from "react";
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 export default function IdeaGenerator() {
     const [idea, setIdea] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
+    const { getToken } = useAuth();
+    const router = useRouter();
 
     const fetchIdea = async () => {
         setIdea("");
         setLoading(true);
         setError(null);
-
-
+        
         try {
             const token = await getToken();
             const res = await fetch("/api/python/idea", {
@@ -22,6 +24,10 @@ export default function IdeaGenerator() {
                     Authorization: `Bearer ${token}`,
                 }
             });
+            if (res.status === 403) {
+                router.push("/pricing");
+                return;
+            }
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
             const reader = res.body?.getReader();
