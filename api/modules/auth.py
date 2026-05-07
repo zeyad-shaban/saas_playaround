@@ -1,12 +1,13 @@
 from fastapi import HTTPException, Depends, Request
 from jose import jwt, JWTError
 import os
+from collections.abc import Mapping
 
 # 1. Grab the public key from env
 PUBLIC_KEY = os.environ.get("PEM_Public_Key")
 
 
-async def verify_token(request: Request):
+async def verify_token(request: Request) -> Mapping[str, object]:
     assert PUBLIC_KEY is not None, "CLERK_JWT_PUBLIC_KEY not found in enviornment variables"
     
     auth_header = request.headers.get("Authorization")
